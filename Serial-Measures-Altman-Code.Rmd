@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Loading the data
+## Loading the data
 ```{r} 
 data <-
   read.csv(
@@ -18,5 +18,147 @@ data <-
     sep = ";"
   )
 ```
+
+## Creating storages for future outputs. 
+```{r}
+# Group A suffix = .A 
+models.A    <- list() # storage for regression models  
+slopes.A    <- c()    # stroage for the slopes 
+r.sqrds.A   <- c()    # storage for r squareds
+
+# Group B suffix = .B
+models.B    <- list() # storage for regression models  
+slopes.B    <- c()    # stroage for the slopes 
+r.sqrds.B   <- c()    # storage for r squareds
+```
+
+## Looping the regressions for Group A
+```{r}
+# Looping regressions of HR vs time for 1st Group    
+for (i in names(data)[-1][1:9]) { # 2nd break indexes range of participants                  
+   models.A[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
+   slopes.A[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
+  r.sqrds.A[[i]] <- summary(lm(get(i) ~ zeit, data))[["r.squared"]] # store r^2
+}
+```
+
+## Plotting Regressions of Group A
+```{r}
+par(mfrow = c(2, 3)) # merges the looped graphs in one graph
+for (i in names(data)[-1][1:9]) { # try indexing here as in other loops
+  plot(get(i) ~ zeit,
+         ylab = "HF (bpm)",
+         main = i, 
+          col = "steelblue",
+          data) # Plotting
+  abline(models.A[[i]])  # add linear fit from models
+}
+```
+
+## Looping regressions of Group B
+```{r}
+# Looping regressions of HR vs time for 2nd Group 
+for (i in names(data)[-1][10:15]) { # 2nd break indexes range of participants                  
+   models.B[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
+   slopes.B[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
+  r.sqrds.B[[i]] <- summary(lm(get(i) ~ zeit, data))[["r.squared"]] # store r^2
+}
+```
+
+## Plotting Regressions of Group B
+```{r}
+# Looping regression plots for 2nd Group
+par(mfrow = c(2, 3)) # merges the looped graphs in one graph
+for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
+  plot(get(i) ~ zeit,
+         ylab = "HF (bpm)",
+         main = i, 
+         col  = "red",
+         data)# Plotting
+  abline(models.B[[i]])  # add linear fit from models
+}
+```
+
+## Assessing the Normal distribution of the slopes for both Groups
+```{r}
+# Assessing normal distribution 1st Group
+par(mfrow=c(1,1)) # resets the "merge graphs" function
+qqnorm(slopes.A,
+       pch   = 1,
+       frame = FALSE,
+       main  = "Slopes.1")
+qqline(slopes.A,
+       col   = "steelblue",
+       lwd   = 2)
+
+# Assessing normal distribution 2nd Group
+par(mfrow=c(1,1)) # resets the "merge graphs" function
+qqnorm(slopes.B,
+       pch   = 1,
+       frame = FALSE,
+       main  = "Slopes.2")
+qqline(slopes.B,
+       col   = "red",
+       lwd   = 2)
+```
+
+## Creating histogramms of the r squareds of the regressions from each group
+```{r}
+# Histogram r squared's Group A
+par(mfrow=c(1,1))
+hist(
+  r.sqrds.A,
+  freq   = TRUE,
+  col    = "steelblue",
+  xlab   = "r.squared",
+  breaks = 25,
+  main   = "Histogram Group A"
+)
+
+# Histogram r squared's Group B
+par(mfrow=c(1,1))
+hist(
+  r.sqrds.B,
+  freq   = TRUE,
+  col    = "red",
+  xlab   = "r.squared",
+  breaks = 25,
+  main   = "Histogram Group B"
+)
+```
+
+## Testing if variances are the sames 
+```{r}
+# Assessing if variances are the same
+# F test for equal variances 
+var.test(slopes.A, slopes.B)
+```
+
+## Conduct a t-test 
+```{r}
+# Conducting t-test
+t.result <- t.test(
+  slopes.A,
+  slopes.B,
+  paired      = FALSE,
+  var.equal   = TRUE, # accroding to var.test result
+  conf.level  = 0.95,
+  alternative = "two.sided"
+)
+```
+
+## Create Boxplot with 95%CI of the difference
+```{r}
+boxplot(slopes.A, 
+        slopes.B, 
+        col = "steelblue",
+        ylim = c(0.0,-0.2),
+        main = "Results: Red lines indicate \n 95%CI diff from t-test"
+)
+abline(h = mean(slopes.B)+t.result$conf.int[1], col = "red") # 95%CI ttest
+abline(h = mean(slopes.B)+t.result$conf.int[2], col = "red") # 95%CI ttest
+```
+
+
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
