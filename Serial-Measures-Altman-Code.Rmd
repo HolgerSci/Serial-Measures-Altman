@@ -1,0 +1,22 @@
+---
+title: "Serial-Measures-Altman-code"
+author: "Holger Burchert"
+date: "16 5 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading the data
+```{r} 
+data <-
+  read.csv(
+    "C:/Users/neo/Documents/Privat/R/Summary Code/summary2.csv",
+    header = TRUE,
+    sep = ";"
+  )
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
