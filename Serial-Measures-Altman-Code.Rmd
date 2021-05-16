@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Loading the data
+The data are stored in a csv file. The first column contains time in 10s intervals from 0s to 120s. Each following column contains heart rate (bpm) data from a single participant. 
 ```{r} 
 data <-
   read.csv(
@@ -19,7 +19,7 @@ data <-
   )
 ```
 
-## Creating storages for future outputs. 
+The aim is to conduct a regression for each participants heart rate data. The slopes are going to be extracted for later comparison between groups. The following chuck creates storages for the regression models, the r squareds of the models as well as the slopes of the regressions. 
 ```{r}
 # Group A suffix = .A 
 models.A    <- list() # storage for regression models  
