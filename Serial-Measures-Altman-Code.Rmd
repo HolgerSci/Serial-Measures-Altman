@@ -21,13 +21,13 @@ data <- read.csv(
 The aim is to conduct a regression for each participants heart rate data. The slopes are going to be extracted for later comparison between groups. The following chuck creates storages for the regression models, the r squareds of the models as well as the slopes of the regressions. 
 ```{r}
 # Group A suffix = .A 
-models.A    <- list() # storage for regression models  
-slopes.A    <- c()    # stroage for the slopes 
+ models.A   <- list() # storage for regression models  
+ slopes.A   <- c()    # stroage for the slopes 
 r.sqrds.A   <- c()    # storage for r squareds
 
 # Group B suffix = .B
-models.B    <- list() # storage for regression models  
-slopes.B    <- c()    # stroage for the slopes 
+ models.B   <- list() # storage for regression models  
+ slopes.B   <- c()    # stroage for the slopes 
 r.sqrds.B   <- c()    # storage for r squareds
 ```
 
@@ -81,7 +81,7 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
 ## Assessing the Normal distribution of the slopes for both Groups
 ```{r}
 # Assessing normal distribution Group A
-par(mfrow=c(1,1)) # resets the "merge graphs" function
+par(mfrow = c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.A,
        pch   = 1,
        frame = FALSE,
@@ -91,7 +91,7 @@ qqline(slopes.A,
        lwd   = 2)
 
 # Assessing normal distribution Group B
-par(mfrow=c(1,1)) # resets the "merge graphs" function
+par(mfrow = c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.B,
        pch   = 1,
        frame = FALSE,
@@ -104,7 +104,7 @@ qqline(slopes.B,
 ## Creating histogramms of the r squareds of the regressions from each group
 ```{r}
 # Histogram r squared's Group A
-par(mfrow=c(1,1))
+par(mfrow = c(1,1))
 hist(
   r.sqrds.A,
   freq   = TRUE,
@@ -115,7 +115,7 @@ hist(
 )
 
 # Histogram r squared's Group B
-par(mfrow=c(1,1))
+par(mfrow = c(1,1))
 hist(
   r.sqrds.B,
   freq   = TRUE,
