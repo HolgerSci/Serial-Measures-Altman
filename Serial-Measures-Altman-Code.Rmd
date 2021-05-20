@@ -11,8 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The data are stored in a csv file. The first column contains time in 10s intervals from 0s to 120s. Each following column contains heart rate (bpm) data from a single participant. 
 ```{r} 
-data <-
-  read.csv(
+data <- read.csv(
     "C:/Users/neo/Documents/Privat/R/Summary Code/summary2.csv",
     header = TRUE,
     sep = ";"
@@ -34,7 +33,7 @@ r.sqrds.B   <- c()    # storage for r squareds
 
 ## Looping the regressions for Group A
 ```{r}
-# Looping regressions of HR vs time for 1st Group    
+# Looping regressions of HR vs time for Group A
 for (i in names(data)[-1][1:9]) { # 2nd break indexes range of participants                  
    models.A[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
    slopes.A[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
@@ -57,7 +56,7 @@ for (i in names(data)[-1][1:9]) { # try indexing here as in other loops
 
 ## Looping regressions of Group B
 ```{r}
-# Looping regressions of HR vs time for 2nd Group 
+# Looping regressions of HR vs time for Group B
 for (i in names(data)[-1][10:15]) { # 2nd break indexes range of participants                  
    models.B[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
    slopes.B[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
@@ -67,7 +66,7 @@ for (i in names(data)[-1][10:15]) { # 2nd break indexes range of participants
 
 ## Plotting Regressions of Group B
 ```{r}
-# Looping regression plots for 2nd Group
+# Looping regression plots for Group B
 par(mfrow = c(2, 3)) # merges the looped graphs in one graph
 for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
   plot(get(i) ~ zeit,
@@ -81,7 +80,7 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
 
 ## Assessing the Normal distribution of the slopes for both Groups
 ```{r}
-# Assessing normal distribution 1st Group
+# Assessing normal distribution Group A
 par(mfrow=c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.A,
        pch   = 1,
@@ -91,7 +90,7 @@ qqline(slopes.A,
        col   = "steelblue",
        lwd   = 2)
 
-# Assessing normal distribution 2nd Group
+# Assessing normal distribution Group B
 par(mfrow=c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.B,
        pch   = 1,
@@ -155,8 +154,8 @@ boxplot(slopes.A,
         ylim = c(0.0,-0.2),
         main = "Results: Red lines indicate \n 95%CI diff from t-test"
 )
-abline(h = mean(slopes.B)+t.result$conf.int[1], col = "red") # 95%CI ttest
-abline(h = mean(slopes.B)+t.result$conf.int[2], col = "red") # 95%CI ttest
+abline(h = mean(slopes.B) + t.result$conf.int[1], col = "red") # 95%CI lower lim
+abline(h = mean(slopes.B) + t.result$conf.int[2], col = "red") # 95%CI upper lim
 ```
 
 
