@@ -86,7 +86,7 @@ par(mfrow=c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.A,
        pch   = 1,
        frame = FALSE,
-       main  = "Slopes.1")
+       main  = "Slopes.A")
 qqline(slopes.A,
        col   = "steelblue",
        lwd   = 2)
@@ -96,7 +96,7 @@ par(mfrow=c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.B,
        pch   = 1,
        frame = FALSE,
-       main  = "Slopes.2")
+       main  = "Slopes.B")
 qqline(slopes.B,
        col   = "red",
        lwd   = 2)
