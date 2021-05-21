@@ -55,7 +55,7 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A
 }
 ```
 
-## Looping regressions of Group B
+New the regressions are looped for group B
 ```{r}
 # Looping regressions of HR vs time for Group B
 for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B                   
@@ -65,7 +65,7 @@ for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B
 }
 ```
 
-## Plotting Regressions of Group B
+Now the regressions are plotted 
 ```{r}
 # Looping regression plots for Group B
 par(mfrow = c(2, 3)) # merges the looped graphs in one graph
@@ -79,30 +79,7 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
 }
 ```
 
-## Assessing the Normal distribution of the slopes for both Groups
-```{r}
-# Assessing normal distribution Group A
-par(mfrow = c(1,1)) # resets the "merge graphs" function
-qqnorm(slopes.A,
-       pch   = 1,
-       frame = FALSE,
-       main  = "Slopes.A")
-qqline(slopes.A,
-       col   = "steelblue",
-       lwd   = 2)
-
-# Assessing normal distribution Group B
-par(mfrow = c(1,1)) # resets the "merge graphs" function
-qqnorm(slopes.B,
-       pch   = 1,
-       frame = FALSE,
-       main  = "Slopes.B")
-qqline(slopes.B,
-       col   = "red",
-       lwd   = 2)
-```
-
-## Creating histogramms of the r squareds of the regressions from each group
+Creating histograms for the r-squareds to show how frequent certain values occured. 
 ```{r}
 # Histogram r squared's Group A
 par(mfrow = c(1,1))
@@ -127,14 +104,37 @@ hist(
 )
 ```
 
-## Testing if variances are the sames 
+## Conduct Statistical Tests
+
+Assessing whether the slopes are Gaussian distributed. 
+```{r}
+# Assessing normal distribution Group A
+par(mfrow = c(1,1)) # resets the "merge graphs" function
+qqnorm(slopes.A,
+       pch   = 1,
+       frame = FALSE,
+       main  = "Slopes.A")
+qqline(slopes.A,
+       col   = "steelblue",
+       lwd   = 2)
+
+# Assessing normal distribution Group B
+par(mfrow = c(1,1)) # resets the "merge graphs" function
+qqnorm(slopes.B,
+       pch   = 1,
+       frame = FALSE,
+       main  = "Slopes.B")
+qqline(slopes.B,
+       col   = "red",
+       lwd   = 2)
+```
+
 ```{r}
 # Assessing if variances are the same
 # F test for equal variances 
 var.test(slopes.A, slopes.B)
 ```
 
-## Conduct a t-test 
 ```{r}
 # Conducting t-test
 t.result <- t.test(
@@ -147,7 +147,7 @@ t.result <- t.test(
 )
 ```
 
-## Create Boxplot with 95%CI of the difference
+Plotting the results
 ```{r}
 boxplot(slopes.A, 
         slopes.B, 
