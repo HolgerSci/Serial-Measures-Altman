@@ -19,7 +19,7 @@ data <- read.csv(
   )
 ```
 
-First some storages were built which will later be filled with outcomes from the regressions. 
+First some storages are built which will later be filled with outcomes from the regressions. 
 ```{r}
 # Group A suffix = .A 
  models.A   <- list() # storage for regression models  
@@ -32,10 +32,10 @@ r.sqrds.A   <- c()    # storage for r squareds
 r.sqrds.B   <- c()    # storage for r squareds
 ```
 
-Now, a loop is created. It conducts a regression von HR vs time and repeats this for each participant. During this loop, each regression model is stored in "models.A", while each slope is stored in "slopes.A" and the r-squared is stored in "r.sqrds.A". 
+Now, a loop will be created. It conducts a regression von HR vs time and repeats this for each participant. During this loop, each regression model is stored in "models.A", while each slope is stored in "slopes.A" and the r-squared is stored in "r.sqrds.A". 
 ```{r}
 # Looping regressions of HR vs time for Group A
-for (i in names(data)[-1][1:9]) { # 2nd break indexes range of participants                  
+for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns         
    models.A[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
    slopes.A[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
   r.sqrds.A[[i]] <- summary(lm(get(i) ~ zeit, data))[["r.squared"]] # store r^2
@@ -44,13 +44,13 @@ for (i in names(data)[-1][1:9]) { # 2nd break indexes range of participants
 
 Since having the r-squareds is not enough (Anscombe's Quartett) all the regressions for each participant are plotted to evaluate whether the linear model is a good fit to the data. This is, again, done by looping the regressions. 
 ```{r}
-par(mfrow = c(2, 3)) # merges the looped graphs in one graph
-for (i in names(data)[-1][1:9]) { # try indexing here as in other loops
+par(mfrow = c(2, 3)) # merges the graphs to be looped in one graph
+for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A 
   plot(get(i) ~ zeit,
          ylab = "HF (bpm)",
          main = i, 
           col = "steelblue",
-          data) # Plotting
+          data) 
   abline(models.A[[i]])  # add linear fit from models
 }
 ```
@@ -58,7 +58,7 @@ for (i in names(data)[-1][1:9]) { # try indexing here as in other loops
 ## Looping regressions of Group B
 ```{r}
 # Looping regressions of HR vs time for Group B
-for (i in names(data)[-1][10:15]) { # 2nd break indexes range of participants                  
+for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B                   
    models.B[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
    slopes.B[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
   r.sqrds.B[[i]] <- summary(lm(get(i) ~ zeit, data))[["r.squared"]] # store r^2
@@ -158,7 +158,3 @@ boxplot(slopes.A,
 abline(h = mean(slopes.B) + t.result$conf.int[1], col = "red") # 95%CI lower lim
 abline(h = mean(slopes.B) + t.result$conf.int[2], col = "red") # 95%CI upper lim
 ```
-
-
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
