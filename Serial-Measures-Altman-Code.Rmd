@@ -145,6 +145,8 @@ t.result <- t.test(
   conf.level  = 0.95,
   alternative = "two.sided"
 )
+
+print(t.result)
 ```
 
 Plotting the results
