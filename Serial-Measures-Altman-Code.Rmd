@@ -9,7 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This code is an implementation of the article "Analysis of Serial Measures in Medical Research" by Matthews et al. 1990 (BMJ). The szenario is, that two groups of intrest performed an exercise test after which the heart rate of the participants declines. The following code fits a regression line through the heart rate for each participant and stores the slope into a storage. The means of the slopes from the two groups are then compared by an independent samples t-test and the results plotted. The data come from a csv-file were the first colum contains the time points at which heart rate data were measured. The other colums contain the heart rate data which were measured at the corresponding time points. 
+This code is an implementation of the article "Analysis of Serial Measures in 
+Medical Research" by Matthews et al. 1990 (BMJ). The szenario is, that two 
+groups of intrest performed an exercise test after which the heart rate of 
+the participants declines. The following code fits a regression line through
+the heart rate for each participant and stores the slope into a storage. The 
+means of the slopes from the two groups are then compared by an independent 
+samples t-test and the results plotted. The data come from a csv-file were 
+the first colum contains the time points at which heart rate data were 
+measured. The other colums contain the heart rate data which were measured 
+at the corresponding time points. 
 
 ```{r} 
 data <- read.csv(
@@ -19,7 +28,9 @@ data <- read.csv(
   )
 ```
 
-First some storages are built which will later be filled with outcomes from the regressions. 
+First some storages are built which will later be filled with outcomes from the
+regressions. 
+
 ```{r}
 # Group A suffix = .A 
  models.A   <- list() # storage for regression models  
@@ -32,7 +43,11 @@ r.sqrds.A   <- c()    # storage for r squareds
 r.sqrds.B   <- c()    # storage for r squareds
 ```
 
-Now, a loop will be created. It conducts a regression von HR vs time and repeats this for each participant. During this loop, each regression model is stored in "models.A", while each slope is stored in "slopes.A" and the r-squared is stored in "r.sqrds.A". 
+Now, a loop will be created. It conducts a regression von HR vs time and 
+repeats this for each participant. During this loop, each regression model 
+is stored in "models.A", while each slope is stored in "slopes.A" and the 
+r-squared is stored in "r.sqrds.A". 
+
 ```{r}
 # Looping regressions of HR vs time for Group A
 for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns         
@@ -42,7 +57,11 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns
 }
 ```
 
-Since having the r-squareds is not enough (Anscombe's Quartett) all the regressions for each participant are plotted to evaluate whether the linear model is a good fit to the data. This is, again, done by looping the regressions. 
+Since having the r-squareds is not enough (Anscombe's Quartett) all the
+regressions for each participant are plotted to evaluate whether the linear
+model is a good fit to the data. This is, again, done by looping the 
+regressions. 
+
 ```{r}
 par(mfrow = c(2, 3)) # merges the graphs to be looped in one graph
 for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A 
@@ -56,6 +75,7 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A
 ```
 
 New the regressions are looped for group B
+
 ```{r}
 # Looping regressions of HR vs time for Group B
 for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B                   
@@ -66,6 +86,7 @@ for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B
 ```
 
 Now the regressions are plotted 
+
 ```{r}
 # Looping regression plots for Group B
 par(mfrow = c(2, 3)) # merges the looped graphs in one graph
@@ -79,7 +100,9 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
 }
 ```
 
-Creating histograms for the r-squareds to show how frequent certain values occured. 
+Creating histograms for the r-squareds to show how frequent certain values 
+occured. 
+
 ```{r}
 # Histogram r squared's Group A
 par(mfrow = c(1,1))
@@ -107,6 +130,7 @@ hist(
 ## Conduct Statistical Tests
 
 Assessing whether the slopes are Gaussian distributed. 
+
 ```{r}
 # Assessing normal distribution Group A
 par(mfrow = c(1,1)) # resets the "merge graphs" function
@@ -150,6 +174,7 @@ print(t.result)
 ```
 
 Plotting the results
+
 ```{r}
 boxplot(slopes.A, 
         slopes.B, 
