@@ -75,7 +75,8 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A
 }
 ```
 
-Finally, the assumptions for linear regression will be checked by inspecting the residual plots for each individual linear regression. 
+Finally, the assumptions for linear regression will be checked by inspecting 
+the residual plots for each individual linear regression. 
 
 ```{r}
 par(mfrow = c(2, 3))
