@@ -75,19 +75,18 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A
 }
 ```
 
+Finally, the assumptions for linear regression will be checked by inspecting the residual plots for each individual linear regression. 
 
-
-This following part is still experimental
 ```{r}
-# Looping regressions of HR vs time for Group A
-for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns         
-    plot(resid(lm(get(i) ~ zeit, data)        ), main = i   )      # store model
-abline(0,0)
-
+par(mfrow = c(2, 3))
+for (i in names(data)[-1][1:9]) {
+  plot(resid(lm(get(i) ~ zeit, data)),
+       ylab = "Residuals",
+       main = i,
+        col = "steelblue")
+  abline(0, 0)
 }
 ```
-
-
 
 New the regressions are looped for group B
 
@@ -110,7 +109,7 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
          ylab = "HF (bpm)",
          main = i, 
          col  = "red",
-         data)# Plotting
+         data) # Plotting
   abline(models.B[[i]])  # add linear fit from models
 }
 ```
