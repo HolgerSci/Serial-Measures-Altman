@@ -75,6 +75,20 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A
 }
 ```
 
+
+
+This following part is still experimental
+```{r}
+# Looping regressions of HR vs time for Group A
+for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns         
+    plot(resid(lm(get(i) ~ zeit, data)        ), main = i   )      # store model
+abline(0,0)
+
+}
+```
+
+
+
 New the regressions are looped for group B
 
 ```{r}
