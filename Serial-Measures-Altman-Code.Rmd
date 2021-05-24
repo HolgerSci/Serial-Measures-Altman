@@ -37,11 +37,6 @@ regressions.
  models.A   <- list() # storage for regression models  
  slopes.A   <- c()    # stroage for the slopes 
 r.sqrds.A   <- c()    # storage for r squareds
-
-# Group B suffix = .B
- models.B   <- list() # storage for regression models  
- slopes.B   <- c()    # stroage for the slopes 
-r.sqrds.B   <- c()    # storage for r squareds
 ```
 
 Now, a loop will be created. It conducts a regression von HR vs time and 
@@ -89,7 +84,18 @@ for (i in names(data)[-1][1:9]) {
 }
 ```
 
-New the regressions are looped for group B
+
+
+Now we do the same for Group B. First, we create again storages as previously
+done for Group A in lines 35 to 40.
+
+```{r}
+# Group B suffix = .B
+ models.B   <- list() # storage for regression models  
+ slopes.B   <- c()    # stroage for the slopes 
+r.sqrds.B   <- c()    # storage for r squareds
+```
+
 
 ```{r}
 # Looping regressions of HR vs time for Group B
@@ -115,12 +121,23 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
 }
 ```
 
+```{r}
+par(mfrow = c(2, 3))
+for (i in names(data)[-1][10:15]) {
+  plot(resid(lm(get(i) ~ zeit, data)),
+       ylab = "Residuals",
+       main = i,
+        col = "red")
+  abline(0, 0)
+}
+```
+
 Creating histograms for the r-squareds to show how frequent certain values 
 occured. 
 
 ```{r}
 # Histogram r squared's Group A
-par(mfrow = c(1,1))
+par(mfrow = c(1,2))
 hist(
   r.sqrds.A,
   freq   = TRUE,
@@ -131,7 +148,7 @@ hist(
 )
 
 # Histogram r squared's Group B
-par(mfrow = c(1,1))
+# par(mfrow = c(1,1))
 hist(
   r.sqrds.B,
   freq   = TRUE,
@@ -148,7 +165,7 @@ Assessing whether the slopes are Gaussian distributed.
 
 ```{r}
 # Assessing normal distribution Group A
-par(mfrow = c(1,1)) # resets the "merge graphs" function
+par(mfrow = c(1,2)) # resets the "merge graphs" function
 qqnorm(slopes.A,
        pch   = 1,
        frame = FALSE,
@@ -158,7 +175,7 @@ qqline(slopes.A,
        lwd   = 2)
 
 # Assessing normal distribution Group B
-par(mfrow = c(1,1)) # resets the "merge graphs" function
+# par(mfrow = c(1,1)) # resets the "merge graphs" function
 qqnorm(slopes.B,
        pch   = 1,
        frame = FALSE,
