@@ -10,15 +10,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 This code is an implementation of the article "Analysis of Serial Measures in 
-Medical Research" by Matthews et al. 1990 (BMJ). The szenario is, that two 
-groups of intrest performed an exercise test after which the heart rate of 
-the participants declines. The following code fits a regression line through
-the heart rate for each participant and stores the slope into a storage. The 
-means of the slopes from the two groups are then compared by an independent 
-samples t-test and the results plotted. The data come from a csv-file were 
-the first colum contains the time points at which heart rate data were 
-measured. The other colums contain the heart rate data which were measured 
-at the corresponding time points. 
+Medical Research" by Matthews et al. 1990: 
+
+Matthews, J., Altman, D. G., Campbell, M. J., & Royston, P. (1990). Analysis of
+serial measurements in medical research. British Medical Journal, 300(6719), 230-235.
+
+Two groups (Group A and Group B) conducted an exercise test. The objective is 
+to test if the heart rate of one group declines faster. The code conducts 
+a linear regression on the heart rate vs time data for each participant. 
+The slopes are then used to conduct a student's t-test to see if the 
+slopes of the two groups differ significantly.
 
 ```{r} 
 data <- read.csv(
@@ -182,6 +183,6 @@ boxplot(slopes.A,
         ylim = c(0.0,-0.2),
         main = "Results: Red lines indicate \n 95%CI diff from t-test"
 )
-abline(h = mean(slopes.B) + t.result$conf.int[1], col = "red") # 95%CI lower lim
-abline(h = mean(slopes.B) + t.result$conf.int[2], col = "red") # 95%CI upper lim
+abline(h = mean(slopes.B) + t.result$conf.int[1], col = "red") # 95%CI low. lim
+abline(h = mean(slopes.B) + t.result$conf.int[2], col = "red") # 95%CI upp. lim
 ```
