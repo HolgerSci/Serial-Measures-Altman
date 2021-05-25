@@ -215,8 +215,9 @@ Plotting the results
 boxplot(slopes.A, 
         slopes.B, 
         col = "steelblue",
-        ylim = c(0.0,-0.2),
-        main = "Results: Red lines indicate \n 95%CI diff from t-test"
+       ylim = c(0.0,-0.2),
+       main = "Results: Red lines indicate \n 95%CI diff from t-test",
+       names = c("Slopes.A", "Slopes.B")
 )
 abline(h = mean(slopes.B) + t.result$conf.int[1], col = "red") # 95%CI low. lim
 abline(h = mean(slopes.B) + t.result$conf.int[2], col = "red") # 95%CI upp. lim
