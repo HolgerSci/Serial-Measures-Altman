@@ -60,6 +60,7 @@ regressions.
 
 ```{r}
 par(mfrow = c(2, 3)) # merges the graphs to be looped in one graph
+
 for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A 
   plot(get(i) ~ zeit,
          ylab = "HF (bpm)",
@@ -75,6 +76,7 @@ the residual plots for each individual linear regression.
 
 ```{r}
 par(mfrow = c(2, 3))
+
 for (i in names(data)[-1][1:9]) {
   plot(resid(lm(get(i) ~ zeit, data)),
        ylab = "Residuals",
@@ -113,6 +115,7 @@ Now the regressions are plotted
 ```{r}
 # Looping regression plots for Group B
 par(mfrow = c(2, 3)) # merges the looped graphs in one graph
+
 for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
   plot(get(i) ~ zeit,
          ylab = "HF (bpm)",
@@ -127,6 +130,7 @@ Residual plots are created.
 
 ```{r}
 par(mfrow = c(2, 3))
+
 for (i in names(data)[-1][10:15]) {
   plot(resid(lm(get(i) ~ zeit, data)),
        ylab = "Residuals",
@@ -142,6 +146,7 @@ occured.
 ```{r}
 # Histogram r squared's Group A
 par(mfrow = c(1,2))
+
 hist(
   r.sqrds.A,
   freq   = TRUE,
@@ -170,6 +175,7 @@ Assessing whether the slopes are Gaussian distributed.
 ```{r}
 # Assessing normal distribution Group A
 par(mfrow = c(1,2)) # resets the "merge graphs" function
+
 qqnorm(slopes.A,
        pch   = 1,
        frame = FALSE,
