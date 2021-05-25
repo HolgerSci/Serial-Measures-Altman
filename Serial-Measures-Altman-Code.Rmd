@@ -86,7 +86,7 @@ for (i in names(data)[-1][1:9]) {
 
 
 
-Now we do the same for Group B. First, we create again storages as previously
+Now we do the same for Group B. First, the storages are created as previously
 done for Group A in lines 35 to 40.
 
 ```{r}
@@ -96,6 +96,8 @@ done for Group A in lines 35 to 40.
 r.sqrds.B   <- c()    # storage for r squareds
 ```
 
+Now the regressions are looped and the models, slopes and r quareds are 
+extracted and stored.
 
 ```{r}
 # Looping regressions of HR vs time for Group B
@@ -120,6 +122,8 @@ for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
   abline(models.B[[i]])  # add linear fit from models
 }
 ```
+
+Residual plots are created.
 
 ```{r}
 par(mfrow = c(2, 3))
