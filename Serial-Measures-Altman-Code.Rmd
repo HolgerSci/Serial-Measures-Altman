@@ -47,9 +47,9 @@ r-squared is stored in "r.sqrds.A".
 ```{r}
 # Looping regressions of HR vs time for Group A
 for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns         
-   models.A[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
-   slopes.A[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
-  r.sqrds.A[[i]] <- summary(lm(get(i) ~ zeit, data))[["r.squared"]] # store r^2
+   models.A[[i]] <-         lm(get(i) ~ time, data)                 # store model
+   slopes.A[[i]] <-    coef(lm(get(i) ~ time, data))["time"]        # store slope
+  r.sqrds.A[[i]] <- summary(lm(get(i) ~ time, data))[["r.squared"]] # store r^2
 }
 ```
 
@@ -62,7 +62,7 @@ regressions.
 par(mfrow = c(2, 3)) # merges the graphs to be looped in one graph
 
 for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A 
-  plot(get(i) ~ zeit,
+  plot(get(i) ~ time,
          ylab = "HF (bpm)",
          main = i, 
           col = "steelblue",
@@ -78,7 +78,7 @@ the residual plots for each individual linear regression.
 par(mfrow = c(2, 3))
 
 for (i in names(data)[-1][1:9]) {
-  plot(resid(lm(get(i) ~ zeit, data)),
+  plot(resid(lm(get(i) ~ time, data)),
        ylab = "Residuals",
        main = i,
         col = "steelblue")
@@ -104,9 +104,9 @@ extracted and stored.
 ```{r}
 # Looping regressions of HR vs time for Group B
 for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B                   
-   models.B[[i]] <-         lm(get(i) ~ zeit, data)                 # store model
-   slopes.B[[i]] <-    coef(lm(get(i) ~ zeit, data))["zeit"]        # store slope
-  r.sqrds.B[[i]] <- summary(lm(get(i) ~ zeit, data))[["r.squared"]] # store r^2
+   models.B[[i]] <-         lm(get(i) ~ time, data)                 # store model
+   slopes.B[[i]] <-    coef(lm(get(i) ~ time, data))["time"]        # store slope
+  r.sqrds.B[[i]] <- summary(lm(get(i) ~ time, data))[["r.squared"]] # store r^2
 }
 ```
 
@@ -117,7 +117,7 @@ Now the regressions are plotted
 par(mfrow = c(2, 3)) # merges the looped graphs in one graph
 
 for (i in names(data)[-1][10:15]) { # try indexing here as in other loops
-  plot(get(i) ~ zeit,
+  plot(get(i) ~ time,
          ylab = "HF (bpm)",
          main = i, 
          col  = "red",
@@ -132,7 +132,7 @@ Residual plots are created.
 par(mfrow = c(2, 3))
 
 for (i in names(data)[-1][10:15]) {
-  plot(resid(lm(get(i) ~ zeit, data)),
+  plot(resid(lm(get(i) ~ time, data)),
        ylab = "Residuals",
        main = i,
         col = "red")
