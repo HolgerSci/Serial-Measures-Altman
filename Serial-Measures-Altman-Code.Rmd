@@ -15,17 +15,15 @@ Medical Research" by Matthews et al. 1990:
 Matthews, J., Altman, D. G., Campbell, M. J., & Royston, P. (1990). Analysis of
 serial measurements in medical research. British Medical Journal, 300(6719), 230-235.
 
-Two groups (Group A and Group B) conducted an exercise test. The objective is 
-to test if the heart rate of one group declines faster. The code conducts 
-a linear regression on the heart rate vs time data for each participant. 
-The slopes are then used to conduct a student's t-test to see if the 
-slopes of the two groups differ significantly.
+For each participant of two groups (Group A and Group B) a linear regression 
+will be performed to summarise the data. A student's t-test is then performed
+to see wheather the groups differ. 
 
 ```{r} 
 data <- read.csv(
     "C:/Users/neo/Documents/Privat/R/Summary Code/summary2.csv",
     header = TRUE,
-    sep = ";"
+       sep = ";"
   )
 ```
 
@@ -72,7 +70,7 @@ for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = Group A
 ```
 
 Finally, the assumptions for linear regression will be checked by inspecting 
-the residual plots for each individual linear regression. 
+the residual plots for each individual linear regression.  
 
 ```{r}
 par(mfrow = c(2, 3))
@@ -215,7 +213,7 @@ t.result <- t.test(
 print(t.result)
 ```
 
-Plotting the results
+Plotting the results 
 
 ```{r}
 boxplot(slopes.A, 
