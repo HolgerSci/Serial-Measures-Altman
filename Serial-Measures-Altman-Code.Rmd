@@ -44,10 +44,11 @@ r-squared is stored in "r.sqrds.A".
 
 ```{r}
 # Looping regressions of HR vs time for Group A
-for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns         
-   models.A[[i]] <-         lm(get(i) ~ time, data)                 # store model
-   slopes.A[[i]] <-    coef(lm(get(i) ~ time, data))["time"]        # store slope
-  r.sqrds.A[[i]] <- summary(lm(get(i) ~ time, data))[["r.squared"]] # store r^2
+for (i in names(data)[-1][1:9]) { # [-1] = omits time, [1:9] = desired columns  
+  
+  models.A[[i]] <-         lm(get(i) ~ time, data)                 # store model
+  slopes.A[[i]] <-    coef(lm(get(i) ~ time, data))["time"]        # store slope
+ r.sqrds.A[[i]] <- summary(lm(get(i) ~ time, data))[["r.squared"]] # store r^2
 }
 ```
 
@@ -102,9 +103,9 @@ extracted and stored.
 ```{r}
 # Looping regressions of HR vs time for Group B
 for (i in names(data)[-1][10:15]) { # [-1] = omits time, [10:15] = Group B                   
-   models.B[[i]] <-         lm(get(i) ~ time, data)                 # store model
-   slopes.B[[i]] <-    coef(lm(get(i) ~ time, data))["time"]        # store slope
-  r.sqrds.B[[i]] <- summary(lm(get(i) ~ time, data))[["r.squared"]] # store r^2
+  models.B[[i]] <-         lm(get(i) ~ time, data)                 # store model
+  slopes.B[[i]] <-    coef(lm(get(i) ~ time, data))["time"]        # store slope
+ r.sqrds.B[[i]] <- summary(lm(get(i) ~ time, data))[["r.squared"]] # store r^2
 }
 ```
 
@@ -150,7 +151,7 @@ hist(
   freq   = TRUE,
   col    = "steelblue",
   xlab   = "r.squared",
-  breaks = 25,
+  breaks = 5,
   main   = "Histogram Group A"
 )
 
@@ -161,7 +162,7 @@ hist(
   freq   = TRUE,
   col    = "red",
   xlab   = "r.squared",
-  breaks = 25,
+  breaks = 5,
   main   = "Histogram Group B"
 )
 ```
